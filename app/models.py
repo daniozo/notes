@@ -8,9 +8,10 @@ class Note(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notes')
+    is_pinned = models.BooleanField(default=False)
     
     class Meta:
-        ordering = ['-updated_at']
+        ordering = ['-is_pinned', '-updated_at']
     
     def __str__(self):
         return self.title

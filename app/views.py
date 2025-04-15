@@ -86,3 +86,16 @@ def user_profile(request):
     }
     
     return render(request, 'app/profile.html', context)
+
+@login_required
+def toggle_pin_note(request, pk):
+    """Pin or unpin a note"""
+    note = get_object_or_404(Note, pk=pk, user=request.user)
+    note.is_pinned = not note.is_pinned
+    note.save()
+    
+    pin_status = "épinglée" if note.is_pinned else "désépinglée"
+    messages.success(request, f"Note {pin_status} avec succès!")
+    
+    next_url = request.GET.get('next', 'notes_list')
+    return redirect(next_url)
