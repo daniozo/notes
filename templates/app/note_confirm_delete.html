@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Delete Note
+{% endblock %}
+
+{% block content %}
+  <div class="mb-6">
+    <a href="{% url 'note_detail' pk=note.pk %}" class="text-blue-600 hover:text-blue-800 flex items-center"><i data-lucide="arrow-left" class="mr-1" width="16" height="16"></i> Back to note</a>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-md p-6 max-w-md mx-auto">
+    <div class="text-center mb-6">
+      <i data-lucide="alert-triangle" class="mx-auto text-red-500" width="48" height="48"></i>
+      <h1 class="text-2xl font-bold text-gray-800 mt-4">Delete Note</h1>
+    </div>
+
+    <p class="text-gray-600 mb-6 text-center">
+      Are you sure you want to delete the note: <br />
+      <span class="font-semibold">{{ note.title }}</span>?
+    </p>
+
+    <form method="POST" class="flex justify-center space-x-4">
+      {% csrf_token %}
+      <a href="{% url 'note_detail' pk=note.pk %}" class="bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400">Cancel</a>
+      <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700">Delete</button>
+    </form>
+  </div>
+{% endblock %}
